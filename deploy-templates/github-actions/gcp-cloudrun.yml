@@ -29,27 +29,27 @@ jobs:
       id: auth
       uses: google-github-actions/auth@v2
       with:
-        credentials_json: ${{ '{{' }} secrets.GCP_SA_KEY {{ '}}' }}
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v2
       with:
-        project_id: ${{ '{{' }} env.PROJECT_ID {{ '}}' }}
+        project_id: ${{ env.PROJECT_ID }}
 
     - name: Configure Docker for Artifact Registry
       run: |
-        gcloud auth configure-docker ${{ '{{' }} env.GAR_LOCATION {{ '}}' }}-docker.pkg.dev
+        gcloud auth configure-docker ${{ env.GAR_LOCATION }}-docker.pkg.dev
 
     - name: Create Artifact Registry repository if not exists
       run: |
-        gcloud artifacts repositories create ${{ '{{' }} env.REPOSITORY {{ '}}' }} \
+        gcloud artifacts repositories create ${{ env.REPOSITORY }} \
           --repository-format=docker \
-          --location=${{ '{{' }} env.GAR_LOCATION {{ '}}' }} \
+          --location=${{ env.GAR_LOCATION }} \
           --description="Docker repository for {{ projectName }}" || true
 
     - name: Build and push Docker image
       env:
-        IMAGE_TAG: ${{ '{{' }} env.GAR_LOCATION {{ '}}' }}-docker.pkg.dev/${{ '{{' }} env.PROJECT_ID {{ '}}' }}/${{ '{{' }} env.REPOSITORY {{ '}}' }}/${{ '{{' }} env.SERVICE_NAME {{ '}}' }}:${{ '{{' }} github.sha {{ '}}' }}
+        IMAGE_TAG: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
       run: |
         docker build -t $IMAGE_TAG .
         docker push $IMAGE_TAG
@@ -58,9 +58,9 @@ jobs:
       id: deploy
       uses: google-github-actions/deploy-cloudrun@v2
       with:
-        service: ${{ '{{' }} env.SERVICE_NAME {{ '}}' }}
-        region: ${{ '{{' }} env.REGION {{ '}}' }}
-        image: ${{ '{{' }} env.GAR_LOCATION {{ '}}' }}-docker.pkg.dev/${{ '{{' }} env.PROJECT_ID {{ '}}' }}/${{ '{{' }} env.REPOSITORY {{ '}}' }}/${{ '{{' }} env.SERVICE_NAME {{ '}}' }}:${{ '{{' }} github.sha {{ '}}' }}
+        service: ${{ env.SERVICE_NAME }}
+        region: ${{ env.REGION }}
+        image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.SERVICE_NAME }}:${{ github.sha }}
         flags: |
           --port=3000
           --allow-unauthenticated
@@ -72,4 +72,4 @@ jobs:
           --concurrency=80
 
     - name: Show deployment URL
-      run: echo "🚀 Deployed to ${{ '{{' }} steps.deploy.outputs.url {{ '}}' }}"
+      run: echo "🚀 Deployed to ${{ steps.deploy.outputs.url }}"
