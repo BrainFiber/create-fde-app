@@ -3,6 +3,7 @@
 > Create production-ready applications with built-in cloud deployment configurations 🚀
 
 [![npm version](https://img.shields.io/npm/v/create-fde-app.svg)](https://www.npmjs.com/package/create-fde-app)
+[![npm downloads](https://img.shields.io/npm/dm/create-fde-app.svg)](https://www.npmjs.com/package/create-fde-app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node Version](https://img.shields.io/node/v/create-fde-app.svg)](https://nodejs.org)
 

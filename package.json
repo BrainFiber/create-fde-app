@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Create production-ready apps with built-in cloud deployment",
   "bin": {
-    "create-fde-app": "./bin/create-fde-app.js"
+    "create-fde-app": "bin/create-fde-app.js"
   },
   "scripts": {
     "test": "NODE_OPTIONS='--experimental-vm-modules' jest",
