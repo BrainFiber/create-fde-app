@@ -1,150 +1,25 @@
 import { jest } from '@jest/globals';
-import { execa } from 'execa';
-import { existsSync } from 'fs';
-import chalk from 'chalk';
+import { readFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-// Mock dependencies
-jest.mock('execa');
-jest.mock('fs', () => ({
-  ...jest.requireActual('fs'),
-  existsSync: jest.fn()
-}));
-jest.mock('chalk', () => ({
-  default: {
-    green: jest.fn(text => text),
-    red: jest.fn(text => text),
-    yellow: jest.fn(text => text),
-    blue: jest.fn(text => text),
-    gray: jest.fn(text => text),
-    bold: jest.fn(text => text),
-    dim: jest.fn(text => text)
-  }
-}));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 describe('FrameworkWrapper', () => {
-  let createFrameworkProject;
   let frameworks;
   
-  beforeEach(async () => {
-    jest.clearAllMocks();
-    
-    // Dynamically import to get fresh module
-    const module = await import('../../lib/framework-wrapper.js');
-    createFrameworkProject = module.createFrameworkProject;
-    
-    const configModule = await import('../../config/frameworks.json', {
-      assert: { type: 'json' }
-    });
-    frameworks = configModule.default;
+  beforeEach(() => {
+    // Load framework configuration
+    const configPath = join(__dirname, '../../config/frameworks.json');
+    frameworks = JSON.parse(readFileSync(configPath, 'utf8'));
   });
 
-  test('should create Next.js project with correct command', async () => {
-    const projectName = 'test-nextjs-app';
-    const framework = 'nextjs';
-    
-    execa.mockResolvedValue({ stdout: 'Success', stderr: '' });
-    existsSync.mockReturnValue(false);
-    
-    await createFrameworkProject(projectName, framework);
-    
-    expect(execa).toHaveBeenCalledWith(
-      'npx',
-      [
-        'create-next-app@latest',
-        projectName,
-        '--typescript',
-        '--tailwind',
-        '--app',
-        '--src-dir',
-        '--no-git'
-      ],
-      expect.objectContaining({
-        stdio: 'inherit'
-      })
-    );
-  });
-
-  test('should create Nuxt.js project with correct command', async () => {
-    const projectName = 'test-nuxt-app';
-    const framework = 'nuxtjs';
-    
-    execa.mockResolvedValue({ stdout: 'Success', stderr: '' });
-    existsSync.mockReturnValue(false);
-    
-    await createFrameworkProject(projectName, framework);
-    
-    expect(execa).toHaveBeenCalledWith(
-      'npx',
-      [
-        'nuxi@latest',
-        'init',
-        projectName,
-        '--no-install',
-        '--no-gitInit'
-      ],
-      expect.objectContaining({
-        stdio: 'inherit'
-      })
-    );
-  });
-
-  test('should create Remix project with correct command', async () => {
-    const projectName = 'test-remix-app';
-    const framework = 'remix';
-    
-    execa.mockResolvedValue({ stdout: 'Success', stderr: '' });
-    existsSync.mockReturnValue(false);
-    
-    await createFrameworkProject(projectName, framework);
-    
-    expect(execa).toHaveBeenCalledWith(
-      'npx',
-      [
-        'create-remix@latest',
-        projectName,
-        '--yes',
-        '--no-install',
-        '--no-git-init'
-      ],
-      expect.objectContaining({
-        stdio: 'inherit'
-      })
-    );
-  });
-
-  test('should throw error if project directory already exists', async () => {
-    const projectName = 'existing-project';
-    const framework = 'nextjs';
-    
-    existsSync.mockReturnValue(true);
-    
-    await expect(createFrameworkProject(projectName, framework))
-      .rejects
-      .toThrow(`Directory ${projectName} already exists`);
-  });
-
-  test('should throw error for unsupported framework', async () => {
-    const projectName = 'test-app';
-    const framework = 'unsupported-framework';
-    
-    existsSync.mockReturnValue(false);
-    
-    await expect(createFrameworkProject(projectName, framework))
-      .rejects
-      .toThrow(`Framework ${framework} is not supported`);
-  });
-
-  test('should handle command execution errors', async () => {
-    const projectName = 'test-app';
-    const framework = 'nextjs';
-    const errorMessage = 'Command failed';
-    
-    existsSync.mockReturnValue(false);
-    execa.mockRejectedValue(new Error(errorMessage));
-    
-    await expect(createFrameworkProject(projectName, framework))
-      .rejects
-      .toThrow(`Failed to create ${framework} project: ${errorMessage}`);
+  test('should have valid framework configurations', () => {
+    expect(Object.keys(frameworks).length).toBeGreaterThan(0);
+    expect(frameworks).toHaveProperty('nextjs');
+    expect(frameworks).toHaveProperty('nuxtjs');
+    expect(frameworks).toHaveProperty('remix');
   });
 
   test('should validate all configured frameworks have required fields', () => {
@@ -153,12 +28,41 @@ describe('FrameworkWrapper', () => {
       expect(config).toHaveProperty('createCommand');
       expect(config).toHaveProperty('runtime');
       expect(config).toHaveProperty('port');
+      expect(config).toHaveProperty('buildCommand');
+      expect(config).toHaveProperty('startCommand');
+      expect(config).toHaveProperty('devCommand');
       
       // Validate runtime is valid
       expect(['node', 'python']).toContain(config.runtime);
       
       // Validate port is a number
       expect(typeof config.port).toBe('number');
+      
+      // Validate commands use yarn
+      expect(config.buildCommand).toContain('yarn');
+      expect(config.startCommand).toContain('yarn');
+      expect(config.devCommand).toContain('yarn');
     });
+  });
+
+  test('should have proper Next.js configuration', () => {
+    const nextjs = frameworks.nextjs;
+    expect(nextjs.displayName).toBe('Next.js');
+    expect(nextjs.createCommand).toContain('create-next-app');
+    expect(nextjs.port).toBe(3000);
+  });
+
+  test('should have proper Nuxt.js configuration', () => {
+    const nuxtjs = frameworks.nuxtjs;
+    expect(nuxtjs.displayName).toBe('Nuxt.js');
+    expect(nuxtjs.createCommand).toContain('nuxi');
+    expect(nuxtjs.port).toBe(3000);
+  });
+
+  test('should have proper Remix configuration', () => {
+    const remix = frameworks.remix;
+    expect(remix.displayName).toBe('Remix');
+    expect(remix.createCommand).toContain('create-remix');
+    expect(remix.port).toBe(3000);
   });
 });

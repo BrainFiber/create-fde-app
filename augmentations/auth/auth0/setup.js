@@ -11,9 +11,16 @@ export async function setupAuth0(projectPath, framework) {
 
   try {
     // Install Auth0 SDK based on framework
-    const packages = framework === 'nextjs' 
-      ? '@auth0/nextjs-auth0'
-      : '@auth0/auth0-react';
+    let packages = '';
+    if (framework === 'nextjs') {
+      packages = '@auth0/nextjs-auth0';
+    } else if (framework === 'nuxtjs') {
+      packages = '@auth0/auth0-vue';
+    } else if (framework === 'remix') {
+      packages = 'remix-auth remix-auth-auth0';
+    } else {
+      packages = '@auth0/auth0-react';
+    }
     
     execSync(`yarn add ${packages}`, { 
       cwd: projectPath,
@@ -122,7 +129,7 @@ export { withApiAuthRequired, withPageAuthRequired };
 
 // Custom claims helper
 export function getCustomClaim(session: any, claim: string) {
-  return session?.user?.[claim] || session?.user?.[\\`https://myapp.com/\\${claim}\\`];
+  return session?.user?.[claim] || session?.user?.[\`https://myapp.com/\${claim}\`];
 }
 `;
 
@@ -153,12 +160,6 @@ export function Auth0Provider({ children }: { children: React.ReactNode }) {
 
 async function setupAuth0Nuxt(projectPath) {
   const spinner = ora('Setting up Auth0 for Nuxt.js...').start();
-
-  // Install Nuxt Auth0 module
-  execSync('yarn add @auth0/auth0-vue', { 
-    cwd: projectPath,
-    stdio: 'pipe'
-  });
 
   // Create auth plugin
   const pluginsDir = join(projectPath, 'plugins');
@@ -229,12 +230,6 @@ export const useAuth = () => {
 
 async function setupAuth0Remix(projectPath) {
   const spinner = ora('Setting up Auth0 for Remix...').start();
-
-  // Install Remix Auth0
-  execSync('yarn add remix-auth remix-auth-auth0', { 
-    cwd: projectPath,
-    stdio: 'pipe'
-  });
 
   // Create auth server utilities
   const authDir = join(projectPath, 'app', 'services', 'auth.server.ts');

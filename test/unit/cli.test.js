@@ -50,17 +50,17 @@ describe('CLI', () => {
     const projectName = 'test-project';
     
     // Just verify the command can be constructed properly
-    const command = `node ${cliPath} ${projectName} --no-git`;
+    const command = `node ${cliPath} ${projectName} --skip-git`;
     expect(command).toContain(projectName);
   });
 
-  test('should accept --no-git flag', () => {
-    const command = `node ${cliPath} test-project --no-git`;
-    expect(command).toContain('--no-git');
+  test('should accept --skip-git flag', () => {
+    const command = `node ${cliPath} test-project --skip-git`;
+    expect(command).toContain('--skip-git');
   });
 
-  test('should accept --no-install flag', () => {
-    const command = `node ${cliPath} test-project --no-install`;
-    expect(command).toContain('--no-install');
+  test('should accept --skip-install flag', () => {
+    const command = `node ${cliPath} test-project --skip-install`;
+    expect(command).toContain('--skip-install');
   });
 });
