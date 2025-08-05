@@ -1,0 +1,40 @@
+{
+  "nextjs": {
+    "displayName": "Next.js",
+    "description": "Full-stack React framework",
+    "createCommand": "create-next-app@latest",
+    "defaultArgs": ["--typescript", "--tailwind", "--app", "--src-dir"],
+    "runtime": "node",
+    "port": 3000,
+    "buildCommand": "npm run build",
+    "startCommand": "npm start",
+    "devCommand": "npm run dev",
+    "healthCheckPath": "/api/health",
+    "postProcessors": ["nextjs-health", "nextjs-docker"]
+  },
+  "nuxtjs": {
+    "displayName": "Nuxt.js",
+    "description": "Full-stack Vue framework",
+    "createCommand": "nuxi@latest",
+    "commandArgs": ["init"],
+    "runtime": "node",
+    "port": 3000,
+    "buildCommand": "npm run build",
+    "startCommand": "npm start",
+    "devCommand": "npm run dev",
+    "healthCheckPath": "/api/health",
+    "postProcessors": ["nuxtjs-health", "nuxtjs-docker"]
+  },
+  "remix": {
+    "displayName": "Remix",
+    "description": "Full-stack web framework",
+    "createCommand": "create-remix@latest",
+    "runtime": "node",
+    "port": 3000,
+    "buildCommand": "npm run build",
+    "startCommand": "npm start",
+    "devCommand": "npm run dev",
+    "healthCheckPath": "/health",
+    "postProcessors": ["remix-health", "remix-docker"]
+  }
+}

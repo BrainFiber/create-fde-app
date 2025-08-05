@@ -1,0 +1,57 @@
+{
+  "name": "create-fde-app",
+  "version": "0.1.0",
+  "description": "Create production-ready apps with built-in cloud deployment",
+  "bin": {
+    "create-fde-app": "./bin/create-fde-app.js"
+  },
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint . --ext .js,.ts",
+    "format": "prettier --write \"**/*.{js,ts,json,md}\"",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "create-app",
+    "nextjs",
+    "nuxtjs",
+    "remix",
+    "aws",
+    "apprunner",
+    "vercel",
+    "cloud-deployment",
+    "fde"
+  ],
+  "author": "FDE Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fde/create-fde-app.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "preferGlobal": true,
+  "type": "module",
+  "dependencies": {
+    "chalk": "^5.5.0",
+    "commander": "^14.0.0",
+    "execa": "^9.6.0",
+    "fs-extra": "^11.3.0",
+    "handlebars": "^4.7.8",
+    "inquirer": "^12.9.0",
+    "ora": "^8.2.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.8",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.2.0",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "eslint": "^9.32.0",
+    "jest": "^30.0.5",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.1",
+    "typescript": "^5.9.2"
+  }
+}

@@ -1,0 +1,37 @@
+# GCP Configuration
+project_id = "{{ projectId }}"
+region     = "{{ gcpRegion }}"
+
+# Project Configuration
+project_name = "{{ projectName }}"
+service_name = "{{ projectName }}-service"  # Optional, defaults to project_name
+environment  = "production"
+
+# Container Configuration
+# container_image = "gcr.io/your-project/your-image:tag"  # Optional, will be built if not provided
+container_port    = 3000
+health_check_path = "/api/health"
+
+# Environment Variables
+environment_variables = {
+  # Add your environment variables here
+  # API_KEY = "your-api-key"
+  # DATABASE_URL = "your-database-url"
+}
+
+# Resource Limits
+cpu_limit    = "1"      # Number of CPUs
+memory_limit = "512Mi"  # Memory limit
+
+# Auto Scaling Configuration
+min_instances   = 0    # Set to 1+ to avoid cold starts
+max_instances   = 100
+max_concurrency = 80   # Concurrent requests per instance
+request_timeout = 60   # Request timeout in seconds
+
+# Access Configuration
+allow_unauthenticated      = true
+use_custom_service_account = false
+
+# Optional: Custom Domain
+# custom_domain = "app.example.com"

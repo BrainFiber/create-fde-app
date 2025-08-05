@@ -1,0 +1,54 @@
+{
+  "aws-apprunner": {
+    "displayName": "AWS App Runner",
+    "description": "Fully managed container service",
+    "requirements": ["aws-cli", "terraform"],
+    "terraform": true,
+    "githubActions": "aws-apprunner.yml",
+    "supportedRuntimes": ["node", "python"],
+    "features": {
+      "autoScaling": true,
+      "customDomain": true,
+      "vpc": false
+    },
+    "envVars": {
+      "AWS_REGION": "us-east-1",
+      "ECR_REPOSITORY": "",
+      "APPRUNNER_SERVICE_NAME": ""
+    }
+  },
+  "vercel": {
+    "displayName": "Vercel",
+    "description": "Frontend cloud platform",
+    "requirements": ["vercel-cli"],
+    "terraform": false,
+    "githubActions": "vercel.yml",
+    "supportedRuntimes": ["node"],
+    "features": {
+      "edge": true,
+      "preview": true
+    },
+    "envVars": {
+      "VERCEL_ORG_ID": "",
+      "VERCEL_PROJECT_ID": ""
+    }
+  },
+  "gcp-cloudrun": {
+    "displayName": "Google Cloud Run",
+    "description": "Serverless container platform",
+    "requirements": ["gcloud"],
+    "terraform": true,
+    "githubActions": "gcp-cloudrun.yml",
+    "supportedRuntimes": ["node", "python"],
+    "features": {
+      "autoScaling": true,
+      "customDomain": true,
+      "vpc": true
+    },
+    "envVars": {
+      "GCP_PROJECT_ID": "",
+      "GCP_REGION": "us-central1",
+      "CLOUDRUN_SERVICE_NAME": ""
+    }
+  }
+}

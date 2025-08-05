@@ -1,0 +1,28 @@
+# AWS Configuration
+aws_region = "{{ awsRegion }}"
+
+# Project Configuration
+project_name = "{{ projectName }}"
+environment  = "production"
+
+# Application Configuration
+app_port          = 3000
+health_check_path = "/api/health"
+
+# Environment Variables
+environment_variables = {
+  NODE_ENV = "production"
+  # Add more environment variables as needed
+}
+
+# Auto Scaling Configuration
+max_concurrency = 100
+max_size        = 3
+min_size        = 1
+
+# Optional: Custom Domain
+# custom_domain = "app.example.com"
+
+# Optional: VPC Configuration
+# vpc_subnets         = ["subnet-xxxxxx", "subnet-yyyyyy"]
+# vpc_security_groups = ["sg-xxxxxx"]
