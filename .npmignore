@@ -1,0 +1,51 @@
+# Source and test files
+test/
+coverage/
+.github/
+docs/
+jest.config.mjs
+.eslintrc.json
+.prettierrc
+tsconfig.json
+.vscode/
+
+# Development files
+*.log
+.DS_Store
+*.test.js
+*.spec.js
+__tests__/
+
+# Git and CI
+.git/
+.gitignore
+.travis.yml
+.circleci/
+
+# Build artifacts
+dist/
+build/
+*.tgz
+
+# Editor files
+.idea/
+*.swp
+*.swo
+*~
+
+# Documentation
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+implementation-plan.md
+*.md
+!README.md
+!CHANGELOG.md
+
+# Lock files (only package.json is needed for npm)
+yarn.lock
+pnpm-lock.yaml
+
+# Temporary files
+tmp/
+temp/
+.cache/

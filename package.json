@@ -29,8 +29,23 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fde/create-fde-app.git"
+    "url": "git+https://github.com/BrainFiber/create-fde-app.git"
   },
+  "bugs": {
+    "url": "https://github.com/BrainFiber/create-fde-app/issues"
+  },
+  "homepage": "https://github.com/BrainFiber/create-fde-app#readme",
+  "files": [
+    "bin/",
+    "lib/",
+    "config/",
+    "augmentations/",
+    "deploy-templates/",
+    "post-processors/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "engines": {
     "node": ">=18.0.0"
   },
