@@ -30,20 +30,20 @@ This augmentation adds MongoDB database support to your project using Prisma ORM
 
 3. **Generate Prisma Client:**
    ```bash
-   npm run db:generate
+   yarn db:generate
    ```
 
 4. **Push schema to database:**
    ```bash
-   npm run db:push
+   yarn db:push
    ```
 
 ## Available Scripts
 
-- `npm run db:generate` - Generate Prisma Client
-- `npm run db:push` - Push schema changes to MongoDB
-- `npm run db:studio` - Open Prisma Studio GUI
-- `npm run db:seed` - Seed the database (if configured)
+- `yarn db:generate` - Generate Prisma Client
+- `yarn db:push` - Push schema changes to MongoDB
+- `yarn db:studio` - Open Prisma Studio GUI
+- `yarn db:seed` - Seed the database (if configured)
 
 ## MongoDB-Specific Features
 

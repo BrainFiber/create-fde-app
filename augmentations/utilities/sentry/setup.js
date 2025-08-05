@@ -17,7 +17,7 @@ export async function setupSentry(projectPath, framework) {
       ? '@nuxtjs/sentry'
       : '@sentry/node @sentry/integrations';
     
-    execSync(`npm install ${packages}`, { 
+    execSync(`yarn add ${packages}`, { 
       cwd: projectPath,
       stdio: 'pipe'
     });

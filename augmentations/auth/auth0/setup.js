@@ -15,7 +15,7 @@ export async function setupAuth0(projectPath, framework) {
       ? '@auth0/nextjs-auth0'
       : '@auth0/auth0-react';
     
-    execSync(`npm install ${packages}`, { 
+    execSync(`yarn add ${packages}`, { 
       cwd: projectPath,
       stdio: 'pipe'
     });
@@ -155,7 +155,7 @@ async function setupAuth0Nuxt(projectPath) {
   const spinner = ora('Setting up Auth0 for Nuxt.js...').start();
 
   // Install Nuxt Auth0 module
-  execSync('npm install @auth0/auth0-vue', { 
+  execSync('yarn add @auth0/auth0-vue', { 
     cwd: projectPath,
     stdio: 'pipe'
   });
@@ -231,7 +231,7 @@ async function setupAuth0Remix(projectPath) {
   const spinner = ora('Setting up Auth0 for Remix...').start();
 
   // Install Remix Auth0
-  execSync('npm install remix-auth remix-auth-auth0', { 
+  execSync('yarn add remix-auth remix-auth-auth0', { 
     cwd: projectPath,
     stdio: 'pipe'
   });

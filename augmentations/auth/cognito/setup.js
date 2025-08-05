@@ -11,7 +11,7 @@ export async function setupCognito(projectPath, framework) {
 
   try {
     // Install AWS Amplify
-    execSync('npm install aws-amplify @aws-amplify/ui-react', { 
+    execSync('yarn add aws-amplify @aws-amplify/ui-react', { 
       cwd: projectPath,
       stdio: 'pipe'
     });

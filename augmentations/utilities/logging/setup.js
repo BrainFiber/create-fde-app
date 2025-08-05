@@ -11,14 +11,14 @@ export async function setupLogging(projectPath, framework) {
 
   try {
     // Install Winston and related packages
-    execSync('npm install winston winston-daily-rotate-file', { 
+    execSync('yarn add winston winston-daily-rotate-file', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
 
     // Install framework-specific packages
     if (framework === 'nextjs') {
-      execSync('npm install next-logger', { 
+      execSync('yarn add next-logger', { 
         cwd: projectPath,
         stdio: 'pipe'
       });

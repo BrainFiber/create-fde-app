@@ -190,7 +190,7 @@ model VerificationToken {
 
 Then run:
 ```bash
-npm run db:migrate
+yarn db:migrate
 ```
 
 ## Customization

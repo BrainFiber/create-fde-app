@@ -11,12 +11,12 @@ export async function setupMongoDB(projectPath, framework) {
 
   try {
     // Install Prisma dependencies
-    execSync('npm install --save-dev prisma', { 
+    execSync('yarn add --dev prisma', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
     
-    execSync('npm install @prisma/client', { 
+    execSync('yarn add @prisma/client', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
@@ -60,8 +60,8 @@ export async function setupMongoDB(projectPath, framework) {
     console.log(chalk.green('\n✅ MongoDB setup complete!\n'));
     console.log(chalk.yellow('Next steps:'));
     console.log('1. Update your DATABASE_URL in .env');
-    console.log('2. Run `npm run db:generate` to generate Prisma client');
-    console.log('3. MongoDB doesn\'t require migrations - use `npm run db:push` to sync\n');
+    console.log('2. Run `yarn db:generate` to generate Prisma client');
+    console.log('3. MongoDB doesn\'t require migrations - use `yarn db:push` to sync\n');
 
   } catch (error) {
     spinner.fail('MongoDB setup failed');

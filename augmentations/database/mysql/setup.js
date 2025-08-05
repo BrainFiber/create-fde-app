@@ -11,12 +11,12 @@ export async function setupMySQL(projectPath, framework) {
 
   try {
     // Install Prisma dependencies
-    execSync('npm install --save-dev prisma', { 
+    execSync('yarn add --dev prisma', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
     
-    execSync('npm install @prisma/client', { 
+    execSync('yarn add @prisma/client', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
@@ -60,8 +60,8 @@ export async function setupMySQL(projectPath, framework) {
     console.log(chalk.green('\n✅ MySQL setup complete!\n'));
     console.log(chalk.yellow('Next steps:'));
     console.log('1. Update your DATABASE_URL in .env');
-    console.log('2. Run `npm run db:migrate` to create your database');
-    console.log('3. Run `npm run db:generate` to generate Prisma client\n');
+    console.log('2. Run `yarn db:migrate` to create your database');
+    console.log('3. Run `yarn db:generate` to generate Prisma client\n');
 
   } catch (error) {
     spinner.fail('MySQL setup failed');

@@ -16,14 +16,14 @@ export async function setupNextAuth(projectPath, framework) {
 
   try {
     // Install NextAuth dependencies
-    execSync('npm install next-auth', { 
+    execSync('yarn add next-auth', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
     
     // Install adapters if using database
     if (existsSync(join(projectPath, 'prisma'))) {
-      execSync('npm install @auth/prisma-adapter', { 
+      execSync('yarn add @auth/prisma-adapter', { 
         cwd: projectPath,
         stdio: 'pipe'
       });

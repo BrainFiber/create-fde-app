@@ -6,9 +6,9 @@
     "defaultArgs": ["--typescript", "--tailwind", "--app", "--src-dir"],
     "runtime": "node",
     "port": 3000,
-    "buildCommand": "npm run build",
-    "startCommand": "npm start",
-    "devCommand": "npm run dev",
+    "buildCommand": "yarn build",
+    "startCommand": "yarn start",
+    "devCommand": "yarn dev",
     "healthCheckPath": "/api/health",
     "postProcessors": ["nextjs-health", "nextjs-docker"]
   },
@@ -19,9 +19,9 @@
     "commandArgs": ["init"],
     "runtime": "node",
     "port": 3000,
-    "buildCommand": "npm run build",
-    "startCommand": "npm start",
-    "devCommand": "npm run dev",
+    "buildCommand": "yarn build",
+    "startCommand": "yarn start",
+    "devCommand": "yarn dev",
     "healthCheckPath": "/api/health",
     "postProcessors": ["nuxtjs-health", "nuxtjs-docker"]
   },
@@ -31,9 +31,9 @@
     "createCommand": "create-remix@latest",
     "runtime": "node",
     "port": 3000,
-    "buildCommand": "npm run build",
-    "startCommand": "npm start",
-    "devCommand": "npm run dev",
+    "buildCommand": "yarn build",
+    "startCommand": "yarn start",
+    "devCommand": "yarn dev",
     "healthCheckPath": "/health",
     "postProcessors": ["remix-health", "remix-docker"]
   }

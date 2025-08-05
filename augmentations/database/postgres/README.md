@@ -24,21 +24,21 @@ This augmentation adds PostgreSQL database support to your project using Prisma 
 
 3. **Run initial migration:**
    ```bash
-   npm run db:migrate
+   yarn db:migrate
    ```
 
 4. **Generate Prisma Client:**
    ```bash
-   npm run db:generate
+   yarn db:generate
    ```
 
 ## Available Scripts
 
-- `npm run db:generate` - Generate Prisma Client
-- `npm run db:migrate` - Create and apply migrations
-- `npm run db:push` - Push schema changes without migrations (development)
-- `npm run db:studio` - Open Prisma Studio GUI
-- `npm run db:seed` - Seed the database (if configured)
+- `yarn db:generate` - Generate Prisma Client
+- `yarn db:migrate` - Create and apply migrations
+- `yarn db:push` - Push schema changes without migrations (development)
+- `yarn db:studio` - Open Prisma Studio GUI
+- `yarn db:seed` - Seed the database (if configured)
 
 ## Usage
 

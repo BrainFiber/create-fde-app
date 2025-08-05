@@ -11,7 +11,7 @@ export async function setupRateLimiting(projectPath, framework) {
 
   try {
     // Install rate limiting packages
-    execSync('npm install express-rate-limit rate-limiter-flexible redis ioredis', { 
+    execSync('yarn add express-rate-limit rate-limiter-flexible redis ioredis', { 
       cwd: projectPath,
       stdio: 'pipe'
     });

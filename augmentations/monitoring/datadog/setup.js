@@ -11,7 +11,7 @@ export async function setupDatadog(projectPath, framework) {
 
   try {
     // Install Datadog packages
-    execSync('npm install dd-trace @datadog/browser-rum @datadog/browser-logs', { 
+    execSync('yarn add dd-trace @datadog/browser-rum @datadog/browser-logs', { 
       cwd: projectPath,
       stdio: 'pipe'
     });
