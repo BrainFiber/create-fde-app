@@ -740,7 +740,15 @@ GitHub Actions will:
 
 ---
 
+## Credits
+
+Created and maintained by **BrainFiber Inc.**
+
 **Need help?** 
-- 📖 [Documentation](https://github.com/fde/create-fde-app/wiki)
-- 🐛 [Report Issues](https://github.com/fde/create-fde-app/issues)
-- 💬 [Discussions](https://github.com/fde/create-fde-app/discussions)
+- 📖 [Documentation](https://github.com/BrainFiber/create-fde-app/wiki)
+- 🐛 [Report Issues](https://github.com/BrainFiber/create-fde-app/issues)
+- 💬 [Discussions](https://github.com/BrainFiber/create-fde-app/discussions)
+
+## License
+
+MIT © BrainFiber Inc.
