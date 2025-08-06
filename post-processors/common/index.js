@@ -1,6 +1,6 @@
 import { join } from 'path';
 import { existsSync } from 'fs';
-import { mkdir, writeFile } from 'fs/promises';
+import { mkdir, writeFile, readFile } from 'fs/promises';
 import { logger } from '../../lib/utils/logger.js';
 
 /**
@@ -67,6 +67,42 @@ PORT=${this.projectDetails.frameworkConfig.port || 3000}
   }
 
   /**
+   * Add deployment scripts to package.json
+   */
+  async addDeploymentScripts() {
+    const packageJsonPath = join(this.projectPath, 'package.json');
+    
+    try {
+      const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'));
+      
+      // Add deployment-related scripts based on deploy target
+      if (this.projectDetails.deployTarget === 'vercel') {
+        packageJson.scripts = {
+          ...packageJson.scripts,
+          'vercel:init': 'vercel link && vercel env pull',
+          'deploy:preview': 'vercel',
+          'deploy:prod': 'vercel --prod',
+          'env:pull': 'vercel env pull'
+        };
+        
+        logger.info('Added Vercel deployment scripts to package.json');
+      }
+      
+      // Add common scripts
+      packageJson.scripts = {
+        ...packageJson.scripts,
+        'docker:build': 'docker build -t ' + this.projectDetails.projectName + ' .',
+        'docker:run': 'docker run -p 3000:3000 ' + this.projectDetails.projectName,
+        'docker:compose': 'docker-compose up'
+      };
+      
+      await writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+    } catch (error) {
+      logger.warn('Could not update package.json scripts:', error.message);
+    }
+  }
+
+  /**
    * Run all common post-processing tasks
    */
   async process() {
@@ -75,6 +111,9 @@ PORT=${this.projectDetails.frameworkConfig.port || 3000}
     if (this.projectDetails.features.includes('env-vars')) {
       await this.addEnvTemplate();
     }
+    
+    // Add deployment scripts
+    await this.addDeploymentScripts();
   }
 }
 
