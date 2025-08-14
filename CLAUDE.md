@@ -2,6 +2,109 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## CRITICAL: AI Agent Usage (Non-Interactive Mode)
+
+**ALWAYS use CI mode when running create-fde-app from Claude Code or any AI agent!**
+
+### Quick Start for AI Agents
+
+```bash
+# MINIMAL EXAMPLE - Always start with this pattern:
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app npx create-fde-app@latest
+
+# WITH OPTIONS:
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app CREATE_FDE_APP_FRAMEWORK=nextjs CREATE_FDE_APP_DEPLOY_TARGET=vercel npx create-fde-app@latest
+```
+
+### Required Pattern for AI Usage
+
+1. **ALWAYS set `CI=true`** - This bypasses ALL interactive prompts
+2. **ALWAYS provide `CREATE_FDE_APP_PROJECT_DIR`** - The project directory name
+3. **NEVER use command-line flags** when CI=true - Use environment variables only
+4. **NEVER forget to check** if directory exists first: `test ! -d my-app`
+
+### Complete Environment Variable Reference
+
+```bash
+# REQUIRED for AI agents:
+CI=true                                   # Enables non-interactive mode
+CREATE_FDE_APP_PROJECT_DIR=my-app         # Project directory name
+
+# OPTIONAL configuration:
+CREATE_FDE_APP_FRAMEWORK=nextjs           # nextjs | nuxtjs | remix (default: nextjs)
+CREATE_FDE_APP_DEPLOY_TARGET=vercel       # vercel | aws-apprunner | gcp-cloudrun (default: vercel)
+CREATE_FDE_APP_FEATURES=docker,github-actions  # Comma-separated, no spaces
+CREATE_FDE_APP_AUGMENTATIONS=database:postgres,auth:nextauth  # Comma-separated
+CREATE_FDE_APP_MONOREPO=true              # true | false (default: false)
+CREATE_FDE_APP_MONOREPO_PATH=apps/web     # Path in monorepo (default: apps/)
+```
+
+### Copy-Paste Ready Examples
+
+```bash
+# 1. Next.js with Vercel (simplest)
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app CREATE_FDE_APP_FRAMEWORK=nextjs CREATE_FDE_APP_DEPLOY_TARGET=vercel npx create-fde-app@latest
+
+# 2. Next.js with AWS App Runner + Database + Auth
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app CREATE_FDE_APP_FRAMEWORK=nextjs CREATE_FDE_APP_DEPLOY_TARGET=aws-apprunner CREATE_FDE_APP_FEATURES=docker,github-actions,terraform CREATE_FDE_APP_AUGMENTATIONS=database:postgres,auth:nextauth npx create-fde-app@latest
+
+# 3. Nuxt.js with GCP Cloud Run + Full Stack
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app CREATE_FDE_APP_FRAMEWORK=nuxtjs CREATE_FDE_APP_DEPLOY_TARGET=gcp-cloudrun CREATE_FDE_APP_FEATURES=docker,github-actions,terraform CREATE_FDE_APP_AUGMENTATIONS=database:mongodb,auth:auth0,monitoring:datadog npx create-fde-app@latest
+
+# 4. Remix with Vercel + Utilities
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app CREATE_FDE_APP_FRAMEWORK=remix CREATE_FDE_APP_DEPLOY_TARGET=vercel CREATE_FDE_APP_FEATURES=docker,github-actions CREATE_FDE_APP_AUGMENTATIONS=utility:logging,utility:rate-limiting,utility:cors npx create-fde-app@latest
+
+# 5. Monorepo Setup
+CI=true CREATE_FDE_APP_PROJECT_DIR=web-app CREATE_FDE_APP_FRAMEWORK=nextjs CREATE_FDE_APP_DEPLOY_TARGET=vercel CREATE_FDE_APP_MONOREPO=true CREATE_FDE_APP_MONOREPO_PATH=apps/web npx create-fde-app@latest
+```
+
+### AI-Friendly Help Commands
+
+```bash
+# Get human-readable help with AI-specific instructions
+npx create-fde-app@latest --help
+
+# Get structured JSON output for parsing
+npx create-fde-app@latest --help-ai
+```
+
+### Common AI Agent Mistakes to Avoid
+
+```bash
+# ❌ WRONG - Don't use command-line arguments with CI mode
+CI=true npx create-fde-app my-app --framework nextjs
+
+# ✅ CORRECT - Use environment variables
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app CREATE_FDE_APP_FRAMEWORK=nextjs npx create-fde-app@latest
+
+# ❌ WRONG - Don't forget CI=true
+CREATE_FDE_APP_PROJECT_DIR=my-app npx create-fde-app@latest
+
+# ✅ CORRECT - Always include CI=true
+CI=true CREATE_FDE_APP_PROJECT_DIR=my-app npx create-fde-app@latest
+
+# ❌ WRONG - Don't use spaces in comma-separated values
+CREATE_FDE_APP_FEATURES="docker, github-actions"
+
+# ✅ CORRECT - No spaces in lists
+CREATE_FDE_APP_FEATURES=docker,github-actions
+```
+
+### Validation Rules
+
+- **Project name**: Must match `^[a-z0-9-]+$` (lowercase, numbers, hyphens only)
+- **Framework**: Must be exactly `nextjs`, `nuxtjs`, or `remix` (lowercase)
+- **Deploy target**: Must be exactly `vercel`, `aws-apprunner`, or `gcp-cloudrun` (lowercase)
+- **Directory**: Must not already exist
+
+### What Happens in CI Mode
+
+1. **No prompts**: All interactive prompts are skipped
+2. **No git init**: Git initialization is skipped
+3. **No install**: Dependency installation is skipped
+4. **Uses defaults**: Any unspecified options use defaults
+5. **Fast execution**: Optimized for automation
+
 ## Project Overview
 
 `create-fde-app` is a CLI tool for scaffolding production-ready web applications with built-in cloud deployment configurations. It wraps official framework creation tools (create-next-app, nuxi, create-remix) and extends them with deployment, monitoring, and advanced features.
