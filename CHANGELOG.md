@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2025-01-14
+
+### Added
+- Comprehensive AI-optimized help system for Claude Code and other AI agents
+- New `--help-ai` flag that outputs structured JSON for programmatic parsing
+- Extensive CI mode documentation in help output with copy-paste ready examples
+- AI agent usage section in CLAUDE.md with validation rules and error prevention tips
+- Complete environment variable reference with detailed descriptions
+
+### Changed
+- Updated branding to BrainFiber Inc.
+- Enhanced help documentation with framework details, deployment targets, and augmentation compatibility matrix
+
+### Improved
+- Vercel deployment workflow
+- Help output now includes common AI agent mistakes to avoid
+- Documentation structure for better AI agent compatibility
+
 ## [0.1.0] - 2025-01-05
 
 ### Added
@@ -41,4 +59,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fast installation with yarn package manager
 - Minimal production dependencies
 
+[0.2.0]: https://github.com/BrainFiber/create-fde-app/releases/tag/v0.2.0
 [0.1.0]: https://github.com/BrainFiber/create-fde-app/releases/tag/v0.1.0
